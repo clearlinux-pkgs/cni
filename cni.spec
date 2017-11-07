@@ -1,8 +1,8 @@
 Name     : cni
-Version  : 0.5.1
-Release  : 3
+Version  : 0.6.0
+Release  : 4
 URL      : https://github.com/containernetworking/cni/
-Source0  : https://github.com/containernetworking/cni/archive/v0.5.1.tar.gz
+Source0  : https://github.com/containernetworking/cni/archive/v0.6.0.tar.gz
 Summary  : Container Network Interface
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause MIT MPL-2.0-no-copyleft-exception
@@ -26,7 +26,7 @@ of supported plugins.
 
 
 %build
-./build
+./build.sh
 
 
 %install
@@ -39,14 +39,5 @@ done
 
 %files
 %defattr(-,root,root,-)
-/usr/libexec/cni/bridge
 /usr/libexec/cni/cnitool
-/usr/libexec/cni/dhcp
-/usr/libexec/cni/flannel
-/usr/libexec/cni/host-local
-/usr/libexec/cni/ipvlan
-/usr/libexec/cni/loopback
-/usr/libexec/cni/macvlan
 /usr/libexec/cni/noop
-/usr/libexec/cni/ptp
-/usr/libexec/cni/tuning
