@@ -1,8 +1,8 @@
 Name     : cni
-Version  : 0.6.0
-Release  : 7
+Version  : 0.7.1
+Release  : 8
 URL      : https://github.com/containernetworking/cni/
-Source0  : https://github.com/containernetworking/cni/archive/v0.6.0.tar.gz
+Source0  : https://github.com/containernetworking/cni/archive/v0.7.1.tar.gz
 Summary  : Container Network Interface
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause MIT MPL-2.0-no-copyleft-exception
@@ -26,8 +26,34 @@ of supported plugins.
 
 
 %build
-./build.sh
+set -e
 
+ORG_PATH="github.com/containernetworking"
+REPO_PATH="${ORG_PATH}/cni"
+
+if [ ! -h gopath/src/${REPO_PATH} ]; then
+	mkdir -p gopath/src/${ORG_PATH}
+	ln -s ../../../.. gopath/src/${REPO_PATH} || exit 255
+fi
+
+export GO15VENDOREXPERIMENT=1
+export GOPATH=${PWD}/gopath
+
+echo "Building API"
+go build "$@" ${REPO_PATH}/libcni
+
+echo "Building reference CLI"
+go build -o ${PWD}/bin/cnitool "$@" ${REPO_PATH}/cnitool
+
+echo "Building plugins"
+PLUGINS="plugins/test/*"
+for d in $PLUGINS; do
+	if [ -d $d ]; then
+		plugin=$(basename $d)
+		echo "  " $plugin
+		go build -o ${PWD}/bin/$plugin "$@" ${REPO_PATH}/$d
+	fi
+done
 
 %install
 # these binaries are not supposed to be run by users
@@ -41,3 +67,4 @@ done
 %defattr(-,root,root,-)
 /usr/libexec/cni/cnitool
 /usr/libexec/cni/noop
+/usr/libexec/cni/sleep
