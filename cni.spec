@@ -1,6 +1,6 @@
 Name     : cni
 Version  : 0.7.1
-Release  : 10
+Release  : 11
 URL      : https://github.com/containernetworking/cni/
 Source0  : https://github.com/containernetworking/cni/archive/v0.7.1.tar.gz
 Summary  : Container Network Interface
@@ -38,12 +38,13 @@ fi
 
 export GO15VENDOREXPERIMENT=1
 export GOPATH=${PWD}/gopath
+BUILDFLAGS="-buildmode=pie -v"
 
 echo "Building API"
-go build "$@" ${REPO_PATH}/libcni
+go build $BUILDFLAGS "$@" ${REPO_PATH}/libcni
 
 echo "Building reference CLI"
-go build -o ${PWD}/bin/cnitool "$@" ${REPO_PATH}/cnitool
+go build $BUILDFLAGS -o ${PWD}/bin/cnitool "$@" ${REPO_PATH}/cnitool
 
 echo "Building plugins"
 PLUGINS="plugins/test/*"
@@ -51,7 +52,7 @@ for d in $PLUGINS; do
 	if [ -d $d ]; then
 		plugin=$(basename $d)
 		echo "  " $plugin
-		go build -o ${PWD}/bin/$plugin "$@" ${REPO_PATH}/$d
+		go build $BUILDFLAGS -o ${PWD}/bin/$plugin "$@" ${REPO_PATH}/$d
 	fi
 done
 
