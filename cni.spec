@@ -1,6 +1,6 @@
 Name     : cni
 Version  : 0.7.1
-Release  : 14
+Release  : 15
 URL      : https://github.com/containernetworking/cni/
 Source0  : https://github.com/containernetworking/cni/archive/v0.7.1.tar.gz
 Summary  : Container Network Interface
