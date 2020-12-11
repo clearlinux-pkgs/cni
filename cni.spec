@@ -1,8 +1,8 @@
 Name     : cni
-Version  : 0.7.1
-Release  : 16
+Version  : 0.8.0
+Release  : 17
 URL      : https://github.com/containernetworking/cni/
-Source0  : https://github.com/containernetworking/cni/archive/v0.7.1.tar.gz
+Source0  : https://github.com/containernetworking/cni/archive/v0.8.0.tar.gz
 Summary  : Container Network Interface
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause MIT MPL-2.0-no-copyleft-exception
