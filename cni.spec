@@ -37,6 +37,7 @@ if [ ! -h gopath/src/${REPO_PATH} ]; then
 fi
 
 export GO15VENDOREXPERIMENT=1
+export GO111MODULE=auto
 export GOPATH=${PWD}/gopath
 BUILDFLAGS="-buildmode=pie -v"
 
